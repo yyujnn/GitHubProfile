@@ -10,6 +10,7 @@
 		E510D9F76AC2D63296A01549 /* Pods_GitHubProfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D984DBAB057A7467FF89643 /* Pods_GitHubProfile.framework */; };
 		F328770E2BC7C624006EF703 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F328770D2BC7C624006EF703 /* UserProfile.swift */; };
 		F32877122BC7C7AE006EF703 /* ProfileAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32877112BC7C7AE006EF703 /* ProfileAPIManager.swift */; };
+		F32877142BC7D5B3006EF703 /* RepositoryAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32877132BC7D5B3006EF703 /* RepositoryAPIManager.swift */; };
 		F3742B982BC7941E00539C8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3742B972BC7941E00539C8C /* AppDelegate.swift */; };
 		F3742B9A2BC7941E00539C8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3742B992BC7941E00539C8C /* SceneDelegate.swift */; };
 		F3742B9C2BC7941E00539C8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3742B9B2BC7941E00539C8C /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 		EBD80ACCD95D2B0EF2A26342 /* Pods-GitHubProfile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubProfile.release.xcconfig"; path = "Target Support Files/Pods-GitHubProfile/Pods-GitHubProfile.release.xcconfig"; sourceTree = "<group>"; };
 		F328770D2BC7C624006EF703 /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		F32877112BC7C7AE006EF703 /* ProfileAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAPIManager.swift; sourceTree = "<group>"; };
+		F32877132BC7D5B3006EF703 /* RepositoryAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAPIManager.swift; sourceTree = "<group>"; };
 		F3742B942BC7941E00539C8C /* GitHubProfile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubProfile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3742B972BC7941E00539C8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3742B992BC7941E00539C8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				F328770D2BC7C624006EF703 /* UserProfile.swift */,
 				F32877112BC7C7AE006EF703 /* ProfileAPIManager.swift */,
 				F3742BB02BC7B62F00539C8C /* Repository.swift */,
+				F32877132BC7D5B3006EF703 /* RepositoryAPIManager.swift */,
 				F3742B9B2BC7941E00539C8C /* ViewController.swift */,
 				F3742B9D2BC7941E00539C8C /* Main.storyboard */,
 				F3742BAF2BC7976C00539C8C /* Cell */,
@@ -232,6 +235,7 @@
 			files = (
 				F32877122BC7C7AE006EF703 /* ProfileAPIManager.swift in Sources */,
 				F3742B9C2BC7941E00539C8C /* ViewController.swift in Sources */,
+				F32877142BC7D5B3006EF703 /* RepositoryAPIManager.swift in Sources */,
 				F3742B982BC7941E00539C8C /* AppDelegate.swift in Sources */,
 				F328770E2BC7C624006EF703 /* UserProfile.swift in Sources */,
 				F3742BB12BC7B62F00539C8C /* Repository.swift in Sources */,

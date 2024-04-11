@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Repository {
+struct Repository: Decodable {
     let name: String
     let language: String
     
-    init(name: String, language: String) {
-        self.name = name
-        self.language = language
+    enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case language = "language"
     }
 }
 

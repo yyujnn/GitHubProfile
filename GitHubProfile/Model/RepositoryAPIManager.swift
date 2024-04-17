@@ -10,10 +10,10 @@ import Alamofire
 
 class RepositoryAPIManager {
     // MARK: - URL Session 사용해서 가져오기
-    let url = "https://api.github.com/users/al45tair/repos"
+    let url = "https://api.github.com/users/"
     
-    func fetchUserRepositories(for username: String, completion: @escaping (Result<[Repository], Error>) -> Void) {
-        guard let url = URL(string: "\(self.url)") else {
+    func fetchUserRepositories(for userName: String, page: Int, completion: @escaping (Result<[Repository], Error>) -> Void) {
+        guard let url = URL(string:  "\(self.url)\(userName)/repos?page=\(page)") else {
             completion(.failure(NSError(domain: "URL 변환 실패", code: 401)))
             return
         }
@@ -44,8 +44,9 @@ class RepositoryAPIManager {
     }
     
     // MARK: - Alamofire 사용해서 가져오기
-    func fetchRepositories(for username: String, completion: @escaping (Result<[Repository], Error>) -> Void) {
-
+    func fetchRepositories(for userName: String, page: Int, completion: @escaping (Result<[Repository], Error>) -> Void) {
+        let url = "\(self.url)\(userName)/repos?page=\(page)"
+        
         AF.request(url).responseDecodable(of: [Repository].self) { response in
             switch response.result {
             case .success(let repositories):

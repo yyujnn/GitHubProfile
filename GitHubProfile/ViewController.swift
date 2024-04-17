@@ -10,7 +10,13 @@ import Alamofire
 import Kingfisher
 
 class ViewController: UIViewController {
-
+    let profileAPIManager = ProfileAPIManager()
+    let repositoryAPIManager = RepositoryAPIManager()
+    
+    let username = "yyujnn"
+    var repositories: [Repository] = []
+    var page = 1
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userId: UILabel!
     @IBOutlet weak var userName: UILabel!
@@ -19,11 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var followingCount: UILabel!
     
     @IBOutlet weak var repositorytableView: UITableView!
-    
-    let userProfile = ProfileAPIManager()
-    let repositoryAPIManager = RepositoryAPIManager()
-    var repositories: [Repository] = []
-    let username = "yyujnn"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +45,9 @@ class ViewController: UIViewController {
         repositorytableView.register(nibName, forCellReuseIdentifier: "RepositoryTableViewCell")
     }
     
-    // MARK: - 프로필뷰 가져오기
+    // MARK: - ProfileView 가져오기
     func setUserProfileView(for username: String) {
-        userProfile.fetchUserProfile(for: username) { [weak self] result in
+        profileAPIManager.fetchUserProfile(for: username) { [weak self] result in
             switch result {
             case .success(let userProfile):
                 DispatchQueue.main.async {
@@ -64,8 +66,9 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - Repository 가져오기
     func fetchRepository(for username: String) {
-        repositoryAPIManager.fetchUserRepositories(for: username) { [weak self] result in
+        repositoryAPIManager.fetchUserRepositories(for: "al45tair", page: page) { [weak self] result in
             switch result {
             case .success(let repositories):
                 self?.repositories = repositories

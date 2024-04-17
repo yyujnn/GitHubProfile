@@ -9,11 +9,5 @@ import Foundation
 
 struct Repository: Decodable {
     let name: String
-    let language: String
-    
-    enum CodingKeys: String, CodingKey {
-        case name = "name"
-        case language = "language"
-    }
+    let language: String?
 }
-

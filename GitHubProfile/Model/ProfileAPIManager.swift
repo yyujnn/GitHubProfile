@@ -9,8 +9,10 @@ import Foundation
 import Alamofire
 
 class ProfileAPIManager {
+    let url = "https://api.github.com/users/"
+    
     func fetchUserProfile(for username: String, completion: @escaping (Result<UserProfile, Error>) -> Void) {
-        let urlString = "https://api.github.com/users/\(username)"
+        let urlString = "\(self.url)\(username)"
         AF.request(urlString).responseDecodable(of: UserProfile.self) { response in
             switch response.result {
             case .success(let userProfile):
@@ -21,4 +23,3 @@ class ProfileAPIManager {
         }
     }
 }
-

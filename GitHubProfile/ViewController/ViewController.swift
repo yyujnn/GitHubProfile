@@ -54,6 +54,31 @@ class ViewController: UIViewController {
     @objc func refreshFire() {
         fetchRepository(for: "al45tair")
     }
+    
+    func loadMore() {
+        if isLoadingLast == true {
+            print("마지막 페이지까지 load")
+            return
+        }
+        page += 1
+        repositoryAPIManager.fetchUserRepositories(for: "al45tair", page: page) { [weak self] result in
+            print("Load more api fired")
+            guard let self = `self` else { return }
+            switch result {
+            case .success(let repositories):
+                if repositories.isEmpty == true {
+                    self.isLoadingLast = true
+                    return
+                }
+                self.repositories = self.repositories + repositories
+                DispatchQueue.main.async {
+                    self.repositoryTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 
     // MARK: - ProfileView 가져오기
     func setUserProfileView(for username: String) {
@@ -113,6 +138,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    // MARK: - LoadMore
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == repositories.count - 1 {
+            print("Load More")
+            loadMore()
+        }
     }
 }
 

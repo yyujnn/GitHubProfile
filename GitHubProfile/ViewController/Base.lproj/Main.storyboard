@@ -94,7 +94,7 @@
                         <outlet property="followersCount" destination="lPx-ek-MiC" id="3Un-RZ-51b"/>
                         <outlet property="followingCount" destination="NF5-iC-igI" id="Qcz-gJ-ax0"/>
                         <outlet property="profileImage" destination="dTX-eS-r95" id="x3F-XQ-gow"/>
-                        <outlet property="repositorytableView" destination="PsT-hu-5xa" id="2wL-YZ-y8r"/>
+                        <outlet property="repositoryTableView" destination="PsT-hu-5xa" id="DDw-80-cx3"/>
                         <outlet property="userId" destination="SLI-kz-pYj" id="zxn-5X-DSf"/>
                         <outlet property="userLocation" destination="U7J-jf-mTf" id="ZH4-Vl-edy"/>
                         <outlet property="userName" destination="aNJ-G9-4hr" id="xLy-RD-QLA"/>

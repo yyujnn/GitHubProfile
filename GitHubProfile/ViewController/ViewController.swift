@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     let username = "yyujnn"
     var repositories: [Repository] = []
     var page = 1
+    var isLoadingLast = false
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userId: UILabel!
@@ -24,7 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var followersCount: UILabel!
     @IBOutlet weak var followingCount: UILabel!
     
-    @IBOutlet weak var repositorytableView: UITableView!
+    @IBOutlet weak var repositoryTableView: UITableView!
 
     
     override func viewDidLoad() {
@@ -37,14 +38,23 @@ class ViewController: UIViewController {
     
     // MARK: - TableView 구성
     private func configTableView() {
-        repositorytableView.dataSource = self
-        repositorytableView.delegate = self
+        repositoryTableView.dataSource = self
+        repositoryTableView.delegate = self
         
         let nibName = UINib(nibName: "RepositoryTableViewCell",
                             bundle: nil)
-        repositorytableView.register(nibName, forCellReuseIdentifier: "RepositoryTableViewCell")
+        repositoryTableView.register(nibName, forCellReuseIdentifier: "RepositoryTableViewCell")
+        
+        // MARK: - Pull to Refresh
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshFire), for: .valueChanged)
+        repositoryTableView.refreshControl = refreshControl
     }
     
+    @objc func refreshFire() {
+        fetchRepository(for: "al45tair")
+    }
+
     // MARK: - ProfileView 가져오기
     func setUserProfileView(for username: String) {
         profileAPIManager.fetchUserProfile(for: username) { [weak self] result in
@@ -72,21 +82,23 @@ class ViewController: UIViewController {
     
     // MARK: - Repository 가져오기
     func fetchRepository(for username: String) {
+        isLoadingLast = false
+        
         repositoryAPIManager.fetchUserRepositories(for: "al45tair", page: page) { [weak self] result in
             switch result {
             case .success(let repositories):
                 self?.repositories = repositories
-                DispatchQueue.main.async {
-                    self?.repositorytableView.reloadData()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self?.repositoryTableView.refreshControl?.endRefreshing()
+                    self?.repositoryTableView.reloadData()
                 }
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
-    
 }
+
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositories.count

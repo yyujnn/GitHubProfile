@@ -104,33 +104,6 @@
             </objects>
             <point key="canvasLocation" x="-77" y="-35"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="a1q-Ph-8cw">
-            <objects>
-                <viewController id="2MZ-yR-IKa" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1Xf-1K-MtR">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WtT-wK-rfl">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="oVu-Vs-Gfe"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="WtT-wK-rfl" firstAttribute="leading" secondItem="oVu-Vs-Gfe" secondAttribute="leading" id="18L-bq-B21"/>
-                            <constraint firstItem="WtT-wK-rfl" firstAttribute="top" secondItem="oVu-Vs-Gfe" secondAttribute="top" id="5Qy-re-3bG"/>
-                            <constraint firstItem="oVu-Vs-Gfe" firstAttribute="bottom" secondItem="WtT-wK-rfl" secondAttribute="bottom" id="BVU-iI-ROF"/>
-                            <constraint firstItem="oVu-Vs-Gfe" firstAttribute="trailing" secondItem="WtT-wK-rfl" secondAttribute="trailing" id="SuC-Yt-XGn"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0Bc-TU-EUu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="726" y="-35"/>
-        </scene>
     </scenes>
     <resources>
         <image name="profileImg" width="512" height="512"/>

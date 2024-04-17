@@ -20,37 +20,31 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var repositorytableView: UITableView!
     
+    let userProfile = ProfileAPIManager()
     let repositoryAPIManager = RepositoryAPIManager()
     var repositories: [Repository] = []
     let username = "yyujnn"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // sampleData
-//        repositories = [
-//            Repository(name: "Repository 1", language: "Swift"),
-//            Repository(name: "Repository 2", language: "Java"),
-//            Repository(name: "Repository 3", language: "JavaScript")
-//        ]
-        
-        repositorytableView.dataSource = self
-        repositorytableView.delegate = self
-        registerXib()
+
+        configTableView()
         setUserProfileView(for: username)
         fetchRepository(for: username)
     }
     
-    // 셀 등록
-    private func registerXib() {
+    // MARK: - TableView 구성
+    private func configTableView() {
+        repositorytableView.dataSource = self
+        repositorytableView.delegate = self
+        
         let nibName = UINib(nibName: "RepositoryTableViewCell",
                             bundle: nil)
         repositorytableView.register(nibName, forCellReuseIdentifier: "RepositoryTableViewCell")
     }
     
-    // 프로필뷰 가져오기
+    // MARK: - 프로필뷰 가져오기
     func setUserProfileView(for username: String) {
-        let userProfile = ProfileAPIManager()
         userProfile.fetchUserProfile(for: username) { [weak self] result in
             switch result {
             case .success(let userProfile):
@@ -71,10 +65,10 @@ class ViewController: UIViewController {
     }
     
     func fetchRepository(for username: String) {
-        repositoryAPIManager.fetchRepositories(for: username) { [weak self] result in
+        repositoryAPIManager.fetchUserRepositories(for: username) { [weak self] result in
             switch result {
-            case .success(let repos):
-                self?.repositories = repos
+            case .success(let repositories):
+                self?.repositories = repositories
                 DispatchQueue.main.async {
                     self?.repositorytableView.reloadData()
                 }

@@ -94,10 +94,7 @@
 			children = (
 				F3742B972BC7941E00539C8C /* AppDelegate.swift */,
 				F3742B992BC7941E00539C8C /* SceneDelegate.swift */,
-				F328770D2BC7C624006EF703 /* UserProfile.swift */,
-				F32877112BC7C7AE006EF703 /* ProfileAPIManager.swift */,
-				F3742BB02BC7B62F00539C8C /* Repository.swift */,
-				F32877132BC7D5B3006EF703 /* RepositoryAPIManager.swift */,
+				F3F011552BCFC08000578A9B /* Model */,
 				F3742B9B2BC7941E00539C8C /* ViewController.swift */,
 				F3742B9D2BC7941E00539C8C /* Main.storyboard */,
 				F3742BAF2BC7976C00539C8C /* Cell */,
@@ -115,6 +112,17 @@
 				F3742BAC2BC7976700539C8C /* RepositoryTableViewCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F3F011552BCFC08000578A9B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F328770D2BC7C624006EF703 /* UserProfile.swift */,
+				F3742BB02BC7B62F00539C8C /* Repository.swift */,
+				F32877112BC7C7AE006EF703 /* ProfileAPIManager.swift */,
+				F32877132BC7D5B3006EF703 /* RepositoryAPIManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

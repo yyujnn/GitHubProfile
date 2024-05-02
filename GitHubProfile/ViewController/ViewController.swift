@@ -17,17 +17,10 @@ class ViewController: UIViewController {
     var repositories: [Repository] = []
     var page = 1
     var isLoadingLast = false
-    
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var userId: UILabel!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var userLocation: UILabel!
-    @IBOutlet weak var followersCount: UILabel!
-    @IBOutlet weak var followingCount: UILabel!
-    
-    @IBOutlet weak var repositoryTableView: UITableView!
+    var profile: UserProfile?
+   
+    @IBOutlet weak var tableView: UITableView!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,23 +31,26 @@ class ViewController: UIViewController {
     
     // MARK: - TableView 구성
     private func configTableView() {
-        repositoryTableView.dataSource = self
-        repositoryTableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         
         let nibName = UINib(nibName: "RepositoryTableViewCell",
                             bundle: nil)
-        repositoryTableView.register(nibName, forCellReuseIdentifier: "RepositoryTableViewCell")
+        tableView.register(nibName, forCellReuseIdentifier: "RepositoryTableViewCell")
         
         // MARK: - Pull to Refresh
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshFire), for: .valueChanged)
-        repositoryTableView.refreshControl = refreshControl
+        tableView.refreshControl = refreshControl
     }
     
     @objc func refreshFire() {
         fetchRepository(for: "al45tair")
     }
     
+    // MARK: - LoadMore
     func loadMore() {
         if isLoadingLast == true {
             print("마지막 페이지까지 load")
@@ -72,7 +68,7 @@ class ViewController: UIViewController {
                 }
                 self.repositories = self.repositories + repositories
                 DispatchQueue.main.async {
-                    self.repositoryTableView.reloadData()
+                    self.tableView.reloadData()
                 }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -85,25 +81,16 @@ class ViewController: UIViewController {
         profileAPIManager.fetchUserProfile(for: username) { [weak self] result in
             switch result {
             case .success(let userProfile):
+                self?.profile = userProfile
                 DispatchQueue.main.async {
-                    self?.setProfileData(userProfile)
+                    
                 }
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
-    func setProfileData(_ userProfile: UserProfile) {
-        if let profileImageUrl = URL(string: userProfile.avatarUrl) {
-            self.profileImage.kf.setImage(with: profileImageUrl)
-        }
-        self.userId.text = userProfile.login
-        self.userName.text = userProfile.name
-        self.userLocation.text = userProfile.location
-        self.followersCount.text = "✨Followers: \(userProfile.followers)"
-        self.followingCount.text = "✨Following: \(userProfile.following)"
-    }
+
     
     // MARK: - Repository 가져오기
     func fetchRepository(for username: String) {
@@ -114,8 +101,8 @@ class ViewController: UIViewController {
             case .success(let repositories):
                 self?.repositories = repositories
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self?.repositoryTableView.refreshControl?.endRefreshing()
-                    self?.repositoryTableView.reloadData()
+                    self?.tableView.refreshControl?.endRefreshing()
+                    self?.tableView.reloadData()
                 }
             case .failure(let error):
                 print(error)
@@ -125,21 +112,47 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositories.count
+        if section == 0 {
+            return 1
+        } else {
+            return repositories.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RepositoryTableViewCell",  for: indexPath) as? RepositoryTableViewCell else { return UITableViewCell() }
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier) as? ProfileTableViewCell else { return UITableViewCell() }
+            
+            if let profile {
+                cell.setProfileData(profile)
+            }
+            
+            return cell
+            
+        } else if indexPath.section == 1 {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "RepositoryTableViewCell",  for: indexPath) as? RepositoryTableViewCell else { return UITableViewCell() }
+            
+            cell.setData(repositories[indexPath.row])
+            return cell
+        }
         
-        cell.setData(repositories[indexPath.row])
-        return cell
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        if indexPath.section == 0 {
+            return 120
+        } else {
+            return 70
+        }
     }
-    // MARK: - LoadMore
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == repositories.count - 1 {
             print("Load More")

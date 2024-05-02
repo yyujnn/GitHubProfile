@@ -50,15 +50,17 @@ class ProfileTableViewCell: UITableViewCell {
     
     func setupConstraints() {
         
-        [profileImageView, idLabel, nameLabel].forEach {
-            contentView.addSubview($0)
+        addSubview(profileImageView)
+        addSubview(idLabel)
+        addSubview(nameLabel)
+        
+        profileImageView.snp.makeConstraints { make in
+            make.width.equalTo(profileImageView.snp.height)
+            make.leading.equalToSuperview().inset(10)
+            make.top.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(10)
         }
         
-        profileImageView.snp.makeConstraints {
-            $0.width.equalTo(profileImageView.snp.height)
-            $0.leading.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(10)
-        }
         idLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(50)
             make.trailing.equalToSuperview().inset(10)
@@ -70,6 +72,7 @@ class ProfileTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(10)
             make.leading.equalTo(profileImageView.snp.trailing).inset(-10)
         }
+        
     }
     
     func setProfileData(_ user: UserProfile) {

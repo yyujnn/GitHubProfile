@@ -16,13 +16,15 @@ Github Profile 페이지를 만들어보자!
 - **GitHub Profile**
   - Almofire Library
   - KingFisher Library
+  - SnapKit Library
 
  
 - **Repository**
   - URLSession
   - Pull to refresh 새로 고침
   - Load More 다음 페이지 스크롤링
-
+  - SearchBar 구현하여 레포지토리 검색
+  
 <br>
 
 ## Stacks

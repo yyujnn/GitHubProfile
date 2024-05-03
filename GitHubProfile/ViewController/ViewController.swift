@@ -55,6 +55,10 @@ class ViewController: UIViewController {
     }
     
     @objc func refreshFire() {
+        guard !isLoadingLast else {
+            tableView.refreshControl?.endRefreshing()
+            return
+        }
         fetchRepository(for: "al45tair")
     }
     
@@ -64,6 +68,8 @@ class ViewController: UIViewController {
             print("마지막 페이지까지 load")
             return
         }
+        isLoadingLast = true // 로드 중인 상태로 변경
+        
         page += 1
         repositoryAPIManager.fetchUserRepositories(for: "al45tair", page: page) { [weak self] result in
             print("Load more api fired")

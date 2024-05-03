@@ -14,19 +14,26 @@ class ViewController: UIViewController {
     let repositoryAPIManager = RepositoryAPIManager()
     
     let username = "yyujnn"
+    var profile: UserProfile?
     var repositories: [Repository] = []
+    var searchResultRepositories = [Repository]()
     var page = 1
     var isLoadingLast = false
-    var profile: UserProfile?
    
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configTableView()
+        configureSearchBar()
         setUserProfileView(for: username)
         fetchRepository(for: username)
+    }
+    
+    func configureSearchBar() {
+        searchBar.placeholder = "검색어를 입력하세요."
     }
     
     // MARK: - TableView 구성
@@ -120,7 +127,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return repositories.count
+            return searchResultRepositories.count > 0 ? searchResultRepositories.count : repositories.count
         }
     }
     
@@ -138,7 +145,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RepositoryTableViewCell",  for: indexPath) as? RepositoryTableViewCell else { return UITableViewCell() }
             
-            cell.setData(repositories[indexPath.row])
+            if searchResultRepositories.count > 0 {
+                let repository = searchResultRepositories[indexPath.row]
+                cell.setData(repository)
+            } else {
+                let repository = repositories[indexPath.row]
+                cell.setData(repository)
+            }
             return cell
         }
         
@@ -158,6 +171,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             print("Load More")
             loadMore()
         }
+    }
+}
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchResultRepositories.removeAll()
+        for i in 0..<repositories.count {
+            if repositories[i].name.lowercased().contains(searchText.lowercased()) {
+                searchResultRepositories.append(repositories[i])
+            }
+        }
+        tableView.reloadData()
     }
 }
 

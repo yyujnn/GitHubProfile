@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,8 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="AnY-9I-8dE">
+                                <rect key="frame" x="0.0" y="59" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="E5H-01-2rj"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="PsT-hu-5xa">
-                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <rect key="frame" x="0.0" y="115" width="393" height="737"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -26,11 +34,15 @@
                         <constraints>
                             <constraint firstItem="PsT-hu-5xa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3VR-f5-3WB"/>
                             <constraint firstItem="PsT-hu-5xa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4BH-Z3-VPP"/>
-                            <constraint firstItem="PsT-hu-5xa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Lyz-3Z-SPI"/>
+                            <constraint firstItem="PsT-hu-5xa" firstAttribute="top" secondItem="AnY-9I-8dE" secondAttribute="bottom" id="5GC-4u-cid"/>
+                            <constraint firstItem="AnY-9I-8dE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="CFd-4U-Pfc"/>
+                            <constraint firstItem="AnY-9I-8dE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IaI-ZV-KXj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AnY-9I-8dE" secondAttribute="trailing" id="Uws-Yu-gBQ"/>
                             <constraint firstAttribute="bottom" secondItem="PsT-hu-5xa" secondAttribute="bottom" id="vvF-pg-AaH"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="AnY-9I-8dE" id="qZB-cP-KuM"/>
                         <outlet property="tableView" destination="PsT-hu-5xa" id="EZ5-sA-LnT"/>
                     </connections>
                 </viewController>

@@ -10,6 +10,10 @@ import Alamofire
 import Kingfisher
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     let profileAPIManager = ProfileAPIManager()
     let repositoryAPIManager = RepositoryAPIManager()
     
@@ -20,9 +24,6 @@ class ViewController: UIViewController {
     var page = 1
     var isLoadingLast = false
    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -169,7 +170,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == repositories.count - 1 {
             print("Load More")
-            loadMore()
+            if searchResultRepositories.count == 0 {
+                loadMore()
+            }
         }
     }
 }
